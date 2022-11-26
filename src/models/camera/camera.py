@@ -11,13 +11,11 @@ class Camera:
         user_name,
         password,
         protocol,
-        location_desc
     ):
         self.name = name
         self.user_name = user_name
         self.password = password
         self.protocol = protocol
-        self.location_desc = location_desc
 
     def json(self):
         return {
@@ -25,7 +23,6 @@ class Camera:
             "user_name": self.user_name,
             "password": self.password,
             "protocol": self.protocol,
-            "location_desc": self.location_desc
         }
     
     @staticmethod
@@ -37,7 +34,6 @@ class Camera:
             protocol=_json["protocol"],
             is_hidden=_json["is_hidden"],
             user_id=_json["user_id"],
-            location_desc=_json["location_desc"]
         )
 
     @staticmethod
@@ -81,13 +77,12 @@ class Camera:
     @staticmethod
     def insert(camera):
         query = (
-            'INSERT INTO Camera(cameraname, ip, username, protocol, camera_password,location_desc) VALUES("{}", "{}", "{}", "{}","{}", "{}", "{}","{}");'.format(
+            'INSERT INTO Camera(cameraname, ip, username, protocol, camera_password) VALUES("{}", "{}", "{}", "{}","{}", "{}", "{}");'.format(
                 camera.name,
                 camera.ip,
                 camera.user_name,
                 camera.protocol,
                 camera.password,
-                camera.location_desc
             )
         )
         logger.info(f"Query: {query}")

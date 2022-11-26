@@ -12,13 +12,17 @@ class Mission:
             camera_id,
             img_url,
             mission_score,
-            is_done
+            location_desc,
+            is_done,
+            mission_time
     ):  
         self._id = _id
         self.camera_id = camera_id
         self.img_url = img_url
         self.mission_score = mission_score
         self.is_done = is_done
+        self.location_desc=location_desc
+        self.mission_time = mission_time
     
     def json(self):
         return {
@@ -26,7 +30,9 @@ class Mission:
             "camera_id": self.camera_id,
             "img_url": self.img_url,
             "mission_score": self.mission_score,
-            "is_done": self.is_done
+            "is_done": self.is_done,
+            "location_desc": self.location_desc,
+            "mission_time": self.mission_time
         }
 
     @staticmethod
@@ -36,11 +42,14 @@ class Mission:
             camera_id=_json["camera_id"],
             img_url=_json["img_url"],
             mission_score=_json["mission_score"],
-            is_done=_json["is_done"] #if _json["is_done"] is not None else 0
+            is_done=_json["is_done"], #if _json["is_done"] is not None else 0
+            location_desc=_json["location_desc"],
+            mission_time=_json["mission_time"]
         )
     
     @staticmethod
     def get_all_pending(
+        user_id,
         done=0
     ):
         query = 'SELECT * FROM Mission m WHERE m.is_done="{}" ORDER BY m.mission_time DESC '.format(done)
@@ -62,11 +71,12 @@ class Mission:
     @staticmethod
     def insert(Mission):
         query = (
-            'INSERT INTO Mission( camera_id, img_url, mission_score,is_done) VALUES("{}", "{}", "{}", "{}");'.format(
+            'INSERT INTO Mission( camera_id, img_url, mission_score, is_done, location_desc) VALUES("{}", "{}", "{}", "{}");'.format(
                 Mission.camera_id,
                 Mission.img_url,
                 Mission.mission_score,
-                Mission.is_done
+                Mission.is_done,
+                Mission.location_desc
             )
         )
         logger.info(f"Query: {query}")
@@ -108,7 +118,7 @@ class Mission:
         map_list = []
         joins = " ".join(joins)
         query = query.format(joins)
-        query += 'SET m.is_done = m.is_done + {}'.format(status)
+        query += 'SET m.is_done = {}'.format(status)
         query += ' WHERE m.mission_id="{}" ;'.format(mission_id)
         logger.info(f"Query: {query}")
         try:

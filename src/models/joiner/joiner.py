@@ -82,9 +82,26 @@ class Joiner:
             return "SQLExecuteError", None
     
     @staticmethod
+    def get_all_other_by_user_id(user_id):
+        query = 'SELECT * FROM Joiner j WHERE j.userid!="{}"'.format(user_id)
+        map_list = []
+    
+        logger.info(f"Query: {query}")
+
+        try:
+            _, joiners = exec_query(query, mode="fetchall")
+            if len(map_list):
+                joiners = process_join_result(joiners, map=map_list)
+            return None, list(map(Joiner.from_json, joiners))
+        except Exception as err:
+            logger.error(f"Cannot exec query: {query}")
+            logger.error(err, exc_info=True)
+            return "SQLExecuteError", None
+    
+    @staticmethod
     def insert(Joiner):
         query = (
-            'INSERT INTO Joiner( userid,mission_id ) VALUES("{}", "{}");'.format(
+            'INSERT INTO Joiner(userid, mission_id) VALUES("{}", "{}");'.format(
                 Joiner.userid,
                 Joiner.mission_id,
             )
@@ -98,3 +115,4 @@ class Joiner:
             logger.error(f"Cannot exec query: {query}")
             logger.error(err, exc_info=True)
             return "SQLExecuteError", None
+    

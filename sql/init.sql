@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS Mission(
 	camera_id int,
 	img_url VARCHAR(40),
 	mission_score int,
+	location_desc VARCHAR(100),
 	is_done tinyint,
 	mission_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (_id)
