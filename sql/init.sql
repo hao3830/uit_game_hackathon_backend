@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS Mission(
 	mission_score int,
 	location_desc VARCHAR(100),
 	is_done tinyint,
+	is_done_model tinyint,
 	mission_time DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (_id)
 );

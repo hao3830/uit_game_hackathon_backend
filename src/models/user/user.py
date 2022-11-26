@@ -110,12 +110,10 @@ class User:
         query += ' WHERE  u._id="{}" ;'.format(user_id)
         logger.info(f"Query: {query}")
         try:
-            _, user = exec_query(query, mode="fetchone")
-            if not user:
-                return "NotFound", None
-            if len(map_list):
-                user = process_join_result(user, map=map_list)
-            return None, User.from_json(user)
+            exec_query(query, mode="fetchone")
+
+
+            return None, None
         except Exception as err:
             logger.error(f"Cannot exec query: {query}")
             logger.error(err, exc_info=True)

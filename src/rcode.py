@@ -208,8 +208,8 @@ c1401 = ErrorCode(
 )
 rcode.add_error(c1401)
 
-c1402 = ErrorCode(int_code=1402, str_code="VerifyTokenFailed",
-                  message="Verify Token Failed")
+c1402 = ErrorCode(int_code=1402, str_code="Verify Failed",
+                  message="Verify Failed")
 rcode.add_error(c1402)
 
 c1501 = ErrorCode(

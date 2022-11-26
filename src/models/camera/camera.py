@@ -77,7 +77,7 @@ class Camera:
     @staticmethod
     def insert(camera):
         query = (
-            'INSERT INTO Camera(cameraname, ip, username, protocol, camera_password) VALUES("{}", "{}", "{}", "{}","{}", "{}", "{}");'.format(
+            'INSERT INTO Camera(cameraname, ip, username, protocol, camera_password) VALUES("{}", "{}", "{}", "{}","{}");'.format(
                 camera.name,
                 camera.ip,
                 camera.user_name,

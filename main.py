@@ -79,6 +79,7 @@ def healthy():
     return "Ok"
 
 
+
 # socket_server_thread = Thread(target=video_stream_controller.streaming,args=())
 # socket_server_thread.daemon = True
 # socket_server_thread.start()

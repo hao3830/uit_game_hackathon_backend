@@ -1,4 +1,5 @@
 from logging import getLogger
+from models.mission.mission import Mission
 
 from src.utils.db_helper import exec_query, process_join_result
 
@@ -66,7 +67,7 @@ class Joiner:
     
     @staticmethod
     def get_all_by_user_id(user_id):
-        query = 'SELECT * FROM Joiner j WHERE j.userid="{}"'.format(user_id)
+        query = 'SELECT * FROM Joiner j WHERE j.userid={}'.format(user_id)
         map_list = []
     
         logger.info(f"Query: {query}")
@@ -83,7 +84,7 @@ class Joiner:
     
     @staticmethod
     def get_all_other_by_user_id(user_id):
-        query = 'SELECT * FROM Joiner j WHERE j.userid!="{}"'.format(user_id)
+        query = 'SELECT * FROM Joiner j WHERE j.userid!={}'.format(user_id)
         map_list = []
     
         logger.info(f"Query: {query}")
@@ -93,6 +94,24 @@ class Joiner:
             if len(map_list):
                 joiners = process_join_result(joiners, map=map_list)
             return None, list(map(Joiner.from_json, joiners))
+        except Exception as err:
+            logger.error(f"Cannot exec query: {query}")
+            logger.error(err, exc_info=True)
+            return "SQLExecuteError", None
+        
+    @staticmethod
+    def get_all_other_by_mission_id(user_id):
+        # query = 'SELECT * FROM Joiner j WHERE j.mission_id!={}'.format(user_id)
+        query = 'SELECT * FROM Mission m WHERE m._id NOT IN (SELECT Joiner.mission_id FROM Joiner WHERE Joiner.userid={});'.format(user_id)
+        map_list = []
+    
+        logger.info(f"Query: {query}")
+
+        try:
+            _, joiners = exec_query(query, mode="fetchall")
+            if len(map_list):
+                joiners = process_join_result(joiners, map=map_list)
+            return None, list(map(Mission.from_json, joiners))
         except Exception as err:
             logger.error(f"Cannot exec query: {query}")
             logger.error(err, exc_info=True)
