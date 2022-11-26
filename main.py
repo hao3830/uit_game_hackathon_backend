@@ -10,6 +10,7 @@ from src.utils import rlogger
 from src.utils.configs import get_config
 # from routers import streaming, checkin
 from routers import  user
+from routers import misson
 # from models.camera.camera_multi import VideoStreamController
 
 now = datetime.datetime.now()
@@ -70,6 +71,7 @@ print("LOG_PATH", LOG_PATH)
 print("API READY")
 
 app.include_router(user.router, prefix="/user")
+app.include_router(misson.router, prefix="/mission")
 # app.include_router(checkin.router, prefix="/checkin")
 
 @app.get("/")
