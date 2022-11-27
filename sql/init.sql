@@ -49,6 +49,17 @@ CREATE TABLE IF NOT EXISTS Joiner(
 	PRIMARY KEY (userid,mission_id)
 );
 
+CREATE TABLE IF NOT EXISTS Gift(
+	_id INT NOT NULL AUTO_INCREMENT,
+	code VARCHAR(200),
+	type_gift VARCHAR(200),
+	avail tinyint,
+	price int,
+
+	PRIMARY KEY (_id)
+);
+
+
 ALTER TABLE Mission
 ADD FOREIGN KEY (camera_id) REFERENCES Camera(_id);
 ALTER TABLE Joiner

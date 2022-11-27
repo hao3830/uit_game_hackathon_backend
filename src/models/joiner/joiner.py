@@ -120,7 +120,7 @@ class Joiner:
     @staticmethod
     def insert(Joiner):
         query = (
-            'INSERT INTO Joiner(userid, mission_id) VALUES("{}", "{}");'.format(
+            'INSERT INTO Joiner(userid, mission_id) VALUES({}, {});'.format(
                 Joiner.userid,
                 Joiner.mission_id,
             )

@@ -86,7 +86,8 @@ class Camera:
             )
         )
         logger.info(f"Query: {query}")
-
+# INSERT INTO Camera(cameraname, ip, username, camera_password, protocol,location_desc) VALUES(
+        # "Fake_Camera_1","0.0.0.0","admin","admin","rtsp","Fake_Location_1"
         try:
             exec_query(query)
             return None, camera

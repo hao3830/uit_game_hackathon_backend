@@ -106,7 +106,6 @@ class Mission:
             )
         )
         logger.info(f"Query: {query}")
-
         try:
             exec_query(query)
             return None, Mission
